@@ -1,0 +1,72 @@
+{
+  "Routes": [
+    {
+
+      "UpstreamPathTemplate": "/api/Products",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/Products",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7122
+        }
+      ]
+    },
+    {
+
+      "UpstreamPathTemplate": "/api/Orders",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/Orders",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7093
+        },
+        {
+          "Host": "localhost",
+          "Port": 5003
+        },
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin", //Requests go in order to all service instances
+        //"Type": "LeastConnection" Sends requests to the instance with fewest active connections
+
+      }
+      
+
+    },
+    {
+      "UpstreamPathTemplate": "/api/Products/{productId}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/Products/{productId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7122
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/CreateOrder/",
+      "UpstreamHttpMethod": [ "POST " ],
+      "DownstreamPathTemplate": "/api/Orders",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7093
+        }
+      ]
+    }
+  ],
+  //"GlobalConfiguration": {
+  //  "BaseUrl": "http://localhost:5078"
+  //}
+}
